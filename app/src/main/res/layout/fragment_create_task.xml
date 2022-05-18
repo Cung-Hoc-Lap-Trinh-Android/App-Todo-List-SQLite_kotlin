@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!-- ScrollView: giao diện có thể trượt lên xuống-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<!--        LinearLayout: giao diện sắp xếp theo chiều dọc/ngang-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="30dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:scaleType="centerCrop" />
+
+<!--        TextView: văn bản-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_extra_bold"
+                android:text="Add a task"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:alpha="0.8"
+                android:fontFamily="@font/nunito_light"
+                android:text="Fill the details below to add a task into your TODO"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/nunito_light"
+                android:text="Task title"
+                tools:ignore="MissingPrefix" />
+
+<!--           EditText: nhập giá trị của task -->
+            <EditText
+                android:id="@+id/addTaskTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_border"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
+                android:text="Task description"
+                tools:ignore="MissingPrefix" />
+
+            <EditText
+                android:id="@+id/addTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
+                android:text="Task date"
+                tools:ignore="MissingPrefix" />
+
+            <EditText
+                android:id="@+id/taskDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
+                android:text="Task time"
+                tools:ignore="MissingPrefix" />
+
+            <EditText
+                android:id="@+id/taskTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                tools:ignore="MissingPrefix" />
+
+<!--         Button: nút thực hiện chức năng -->
+            <Button
+                android:id="@+id/addTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn_background"
+                android:padding="10dp"
+                android:text="Add task"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView><!-- tools:ignore="MissingPrefix" -> ??? -->
+</RelativeLayout>
