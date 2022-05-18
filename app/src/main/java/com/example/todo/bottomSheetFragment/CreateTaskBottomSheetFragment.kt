@@ -38,7 +38,8 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
     var mHour = 0
     var mMinute = 0
     var setRefreshListener: SetRefreshListener? = null
-//    var alarmManager: AlarmManager? = null
+
+    //    var alarmManager: AlarmManager? = null
     var timePickerDialog: TimePickerDialog? = null
     var datePickerDialog: DatePickerDialog? = null
     lateinit var activity: MainActivity
@@ -48,7 +49,7 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
         fun refresh()
     }
 
-    private val mBottomSheetBehaviorCallback: BottomSheetCallback = object : BottomSheetCallback() {
+    private val bottomSheetCallback = object : BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                 dismiss()
@@ -58,7 +59,13 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {}
     }
 
-    fun setTaskItem(position: Int, isEdit: Boolean, setRefreshListener: SetRefreshListener?, activity: MainActivity) {
+    //costructor : truyền dữ liệu vào cho dialog
+    fun setTaskItem(
+        position: Int,
+        isEdit: Boolean,
+        setRefreshListener: SetRefreshListener?,
+        activity: MainActivity
+    ) {
         this.pos = position
         this.isEdit = isEdit
         this.activity = activity
@@ -70,20 +77,27 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
         val contentView = View.inflate(context, R.layout.fragment_create_task, null)
-
+        // biến môi trường
         activity = getActivity() as MainActivity
+        //khởi tạo lại database
         database = Room.databaseBuilder(
             activity, myDatabase::class.java, "To_Do"
         ).build()
-//        GlobalScope.launch {
-//            DataObject.listdata = database.dao().getTasks() as MutableList<TaskModel>
-//        }
 
+        //gán giao diện lên dialog
         dialog.setContentView(contentView)
-        contentView.addTask.setOnClickListener { view: View? -> if (validateFields(contentView)) createTask(contentView) }
-        if (isEdit) {
-            showTaskFromId(contentView,pos)
+
+        //lắng nghe sự kiện cho button Add
+        contentView.addTask.setOnClickListener { view: View? ->
+            if (validateFields(contentView)) createTask(contentView)
         }
+
+        //hiển thị dữ liệu lên giao diện để update
+        if (isEdit) {
+            showTaskFromId(contentView, pos)
+        }
+
+        //Hiển thị Calendar - DatePickerDialog
         contentView.taskDate.setOnTouchListener { view: View?, motionEvent: MotionEvent ->
             if (motionEvent.action == MotionEvent.ACTION_UP) {
                 val c = Calendar.getInstance()
@@ -91,8 +105,7 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
                 mMonth = c[Calendar.MONTH]
                 mDay = c[Calendar.DAY_OF_MONTH]
                 datePickerDialog = DatePickerDialog(
-                    activity,
-                    { view1: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                    activity, { view1: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                         contentView.taskDate.setText(dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                         datePickerDialog?.dismiss()
                     }, mYear, mMonth, mDay
@@ -102,6 +115,7 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
             }
             true
         }
+        //Hiển thị Calendar - TimePickerDialog
         contentView.taskTime.setOnTouchListener { view: View?, motionEvent: MotionEvent ->
             if (motionEvent.action == MotionEvent.ACTION_UP) {
                 // Get Current Time
@@ -110,7 +124,8 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
                 mMinute = c[Calendar.MINUTE]
 
                 // Launch Time Picker Dialog
-                timePickerDialog = TimePickerDialog(getActivity(),
+                timePickerDialog = TimePickerDialog(
+                    getActivity(),
                     { view12: TimePicker?, hourOfDay: Int, minute: Int ->
                         contentView.taskTime?.setText("$hourOfDay:$minute")
                         timePickerDialog?.dismiss()
@@ -122,6 +137,7 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
+    // xét rỗng trên giao diện
     fun validateFields(view: View): Boolean {
         return if (view.addTaskTitle.text.toString().equals("", ignoreCase = true)) {
             Toast.makeText(activity, "Please enter a valid title", Toast.LENGTH_SHORT).show()
@@ -147,58 +163,54 @@ class CreateTaskBottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroyView()
     }
 
+    // Thực hiện chức năng add task và update task
     private fun createTask(view: View) {
-                var taskTitle = view.addTaskTitle.text.toString()
-                var taskDescrption = view.addTaskDescription.text.toString()
-                var date = view.taskDate.text.toString()
-                var lastAlarm = view.taskTime.text.toString()
+        //lấy dữ liệu về - lưu vào các biến
+        var taskTitle = view.addTaskTitle.text.toString()
+        var taskDescrption = view.addTaskDescription.text.toString()
+        var date = view.taskDate.text.toString()
+        var lastAlarm = view.taskTime.text.toString()
 
-                if (!isEdit){
-                    DataObject.setData(taskTitle, taskDescrption, date, status, lastAlarm)
-                    GlobalScope.launch {
-                        database.dao().insertTask(
-                            Entity(0, taskTitle, taskDescrption, date, status, lastAlarm
-                            )
-                        )
-                    }
-                    Toast.makeText(getActivity(), "Your event is been added", Toast.LENGTH_SHORT).show()
-                }
-                else{
-//                    val pos = activity.intent.getIntExtra("id", -1)
-//                    showTaskFromId(pos)
-                    DataObject.updateData(pos, taskTitle, taskDescrption, date, status, lastAlarm)
-                    GlobalScope.launch {
-                        database.dao().updateTask(
-                            Entity(pos + 1, taskTitle, taskDescrption, date, status, lastAlarm
-                            )
-                        )
-                    }
-                    Toast.makeText(getActivity(), "Your event is been update", Toast.LENGTH_SHORT).show()
-                }
-                setRefreshListener?.refresh()
-                dismiss()
+        if (!isEdit) {
+            //add task
+            DataObject.setData(taskTitle, taskDescrption, date, status, lastAlarm)
+            GlobalScope.launch {
+                database.dao().insertTask(
+                    Entity(
+                        0, taskTitle, taskDescrption, date, status, lastAlarm
+                    )
+                )
+            }
+            Toast.makeText(getActivity(), "Your event is been added", Toast.LENGTH_SHORT).show()
+        } else {
+            //Update
+            DataObject.updateData(pos, taskTitle, taskDescrption, date, status, lastAlarm)
+            GlobalScope.launch {
+                database.dao().updateTask(
+                    Entity(
+                        pos + 1, taskTitle, taskDescrption, date, status, lastAlarm
+                    )
+                )
+            }
+            Toast.makeText(getActivity(), "Your event is been update", Toast.LENGTH_SHORT).show()
+        }
+        //reset lại dữ liệu và ẩn dialog
+        setRefreshListener?.refresh()
+        dismiss()
     }
 
-    private fun showTaskFromId(view: View, pos : Int) {
+    //hiển thị dữ liệu lên trên giao diện
+    private fun showTaskFromId(view: View, pos: Int) {
         view.addTaskTitle.setText(DataObject.getData(pos).taskTitle)
-        Toast.makeText(getActivity(), DataObject.getData(pos).taskTitle + " helllo", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            getActivity(),
+            DataObject.getData(pos).taskTitle + " helllo",
+            Toast.LENGTH_SHORT
+        ).show()
         view.addTaskDescription.setText(DataObject.getData(pos).taskDescrption)
         view.taskDate.setText(DataObject.getData(pos).date)
         view.taskTime.setText(DataObject.getData(pos).lastAlarm)
         status = DataObject.getData(pos).isComplete
-    }
-
-    private fun setDataInUI(view: View) {
-        view.addTaskTitle.setText(task?.taskTitle)
-        view.addTaskDescription?.setText(task?.taskDescrption)
-        view.taskDate.setText(task?.date)
-        view.taskTime.setText(task?.lastAlarm)
-
-//        taskEvent.setText(task.getEvent());
-    }
-
-    companion object {
-        var count = 0
     }
 
 }

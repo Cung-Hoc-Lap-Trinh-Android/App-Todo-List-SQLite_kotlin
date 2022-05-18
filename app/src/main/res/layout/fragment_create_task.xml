@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!-- ScrollView: giao diện có thể trượt lên xuống-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--        LinearLayout: giao diện sắp xếp theo chiều dọc/ngang-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,24 +27,25 @@
                 android:background="@drawable/ic_add_black_24dp"
                 android:scaleType="centerCrop" />
 
+<!--        TextView: văn bản-->
             <TextView
-                fontPath="fonts/nunito_extra_bold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="Add a task"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 tools:ignore="MissingPrefix" />
 
             <TextView
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:alpha="0.8"
+                android:fontFamily="@font/nunito_light"
                 android:text="Fill the details below to add a task into your TODO"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
@@ -51,17 +53,17 @@
                 tools:ignore="MissingPrefix" />
 
             <TextView
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/nunito_light"
                 android:text="Task title"
                 tools:ignore="MissingPrefix" />
 
+<!--           EditText: nhập giá trị của task -->
             <EditText
                 android:id="@+id/addTaskTitle"
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -72,90 +74,69 @@
                 tools:ignore="MissingPrefix" />
 
             <TextView
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
                 android:text="Task description"
                 tools:ignore="MissingPrefix" />
 
             <EditText
                 android:id="@+id/addTaskDescription"
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textSize="14sp"
                 tools:ignore="MissingPrefix" />
 
-
-            <!--        <TextView-->
-            <!--            fontPath="fonts/nunito_light.ttf"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginLeft="3dp"-->
-            <!--            android:layout_marginTop="20dp"-->
-            <!--            android:text="Add an event"-->
-            <!--            tools:ignore="MissingPrefix" />-->
-
-            <!--        <EditText-->
-            <!--            android:id="@+id/taskEvent"-->
-            <!--            fontPath="fonts/nunito_light.ttf"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="5dp"-->
-            <!--            android:background="@drawable/btn_border"-->
-            <!--            android:padding="10dp"-->
-            <!--            android:singleLine="true"-->
-            <!--            android:textSize="14sp"-->
-            <!--            tools:ignore="MissingPrefix" />-->
-
             <TextView
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
                 android:text="Task date"
                 tools:ignore="MissingPrefix" />
 
             <EditText
                 android:id="@+id/taskDate"
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textSize="14sp"
                 tools:ignore="MissingPrefix" />
 
             <TextView
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_light"
                 android:text="Task time"
                 tools:ignore="MissingPrefix" />
 
             <EditText
                 android:id="@+id/taskTime"
-                fontPath="fonts/nunito_light.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/btn_border"
+                android:fontFamily="@font/nunito_light"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textSize="14sp"
                 tools:ignore="MissingPrefix" />
 
+<!--         Button: nút thực hiện chức năng -->
             <Button
                 android:id="@+id/addTask"
                 android:layout_width="match_parent"

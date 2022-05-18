@@ -1,5 +1,6 @@
 package com.example.todo.model
 
+//tạo đối tượng
 data class TaskModel (
     var taskTitle: String,
     var taskDescrption: String,

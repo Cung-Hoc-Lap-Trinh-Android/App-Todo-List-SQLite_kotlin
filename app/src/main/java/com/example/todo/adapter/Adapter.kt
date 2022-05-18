@@ -32,11 +32,8 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
     var outputDateString: String? = null
     private lateinit var database: myDatabase
 
+    //ánh xạ ID các phần tử trên giao diện item
     class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var title = itemView.title
-//        var priority = itemView.priority
-//        var layout = itemView.mylayout
-
             var day = itemView.day
             var date = itemView.date
             var month = itemView.month
@@ -45,29 +42,17 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
             var status = itemView.checkBtn
             var options = itemView.options
             var time = itemView.time
-//            ButterKnife.bind(this, view)
 
     }
 
+//    liên kết giao diện item trong recyclerview
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
         return viewHolder(itemView)
     }
 
+    // đỗ dữ liệu lên các thành phần
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-//        when (data[position].priority.toLowerCase()) {
-//            "high" -> holder.layout.setBackgroundColor(Color.parseColor("#F05454"))
-//            "medium" -> holder.layout.setBackgroundColor(Color.parseColor("#EDC988"))
-//            else -> holder.layout.setBackgroundColor(Color.parseColor("#00917C"))
-//        }
-//
-//        holder.title.text = data[position].title
-//        holder.priority.text = data[position].priority
-//        holder.itemView.setOnClickListener{
-//            val intent= Intent(holder.itemView.context, UpdateCard::class.java)
-//            intent.putExtra("id",position)
-//            holder.itemView.context.startActivity(intent)
-//        }
         database = Room.databaseBuilder(
             holder.itemView.context, myDatabase::class.java, "To_Do"
         ).build()
@@ -76,8 +61,12 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
         holder.description.text = task.taskDescrption
         holder.time.text = task.lastAlarm
         holder.status.isChecked = toBoolean(task.isComplete)
+
+        //lắng nghe sự kiện thay đổi của Checkbox - tích vào -> status.isChecked = true -> cho giá trị trả về bằng 1 => Nhiệm vụ Task đã hoàn thành
+        //không tích  -> cho giá trị trả về bằng 0 => Nhiệm vụ Task đang và sẽ thực hiện
         holder.status.setOnCheckedChangeListener { compoundButton: CompoundButton?, b: Boolean ->
             if (holder.status.isChecked) {
+                //cập nhật lại dữ liệu - trường hợp tích
                 DataObject.updateData(position, task.taskTitle, task.taskDescrption, task.date,
                     1, task.lastAlarm)
                 GlobalScope.launch {
@@ -88,6 +77,7 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
                     )
                 }
             } else {
+                //cập nhật lại dữ liệu - trường hợp bỏ tích
                 DataObject.updateData(position, task.taskTitle, task.taskDescrption, task.date,
                     0, task.lastAlarm)
                 GlobalScope.launch {
@@ -99,14 +89,17 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
                 }
             }
         }
+        //lắng nghe sự kiện và hiển thị menu ngữ cảnh - PopupMenu
         holder.options.setOnClickListener { view: View? -> showPopUpMenu(holder.itemView.context,view, position) }
         try {
+            //định dạng/fomat lại ngày tháng và thực hiện cắt chuỗi
             date = inputDateFormat.parse(task.date)
             outputDateString = dateFormat.format(date)
             val items1 = outputDateString?.split(" ")?.toTypedArray() ?: return
             val day = items1[0]
             val dd = items1[1]
             val month = items1[2]
+            //hiển thị lên giao hiện
             holder.day.text = day
             holder.date.text = dd
             holder.month.text = month
@@ -116,21 +109,23 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
 
     }
 
-
+//hiển thị menu ngữ cảnh - xóa/sửa
     fun showPopUpMenu(context: Context, view: View?, position: Int) {
         val task = data[position]
         val popupMenu = PopupMenu(context, view)
+        //ánh xạ layout: menu
         popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-            when (item.itemId) {
+            when (item.itemId) {  //lăng nghe Item Id
                 R.id.menuDelete -> {
                     val alertDialogBuilder = AlertDialog.Builder(
                         context, R.style.AppTheme_Dialog
                     )
-                    alertDialogBuilder.setTitle(R.string.delete_confirmation)
-                        .setMessage(R.string.sureToDelete)
+                    //định dạng hiển  thị cho dialog
+                    alertDialogBuilder.setTitle(R.string.delete_confirmation)     //tiêu đề
+                        .setMessage(R.string.sureToDelete)   //nội dung
                         .setPositiveButton(R.string.yes) { dialog: DialogInterface?, which: Int ->
-                          //  deleteTaskFromId(task.taskId, position)
+                            //thực hiện chức năng xóa
                             DataObject.deleteData(position)
                             GlobalScope.launch {
                                 database.dao().deleteTask(
@@ -145,7 +140,7 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
                         .show()
                 }
                 R.id.menuUpdate -> {
-
+                    //khởi tạo và hiển thị dialog Update
                     val createTaskBottomSheetFragment = CreateTaskBottomSheetFragment()
                     createTaskBottomSheetFragment.setTaskItem(position, true, mainActivity, mainActivity)
                     createTaskBottomSheetFragment.show(
@@ -156,28 +151,16 @@ class Adapter(var data: List<TaskModel>, var setRefreshListener: CreateTaskBotto
             }
             false
         }
+        //hiển thị menu ngũ cảnh
         popupMenu.show()
     }
 
-//    private fun updateStatusID(taskId: Int, i: Int) {
-//        database = Room.databaseBuilder(
-//            context, myDatabase::class.java, "To_Do"
-//        ).build()
-//        database.dao().updateStatusRow(taskId, i)
-//
-//    }
-//
-//    private fun deleteTaskFromId(taskId: Int, position: Int) {
-//        database = Room.databaseBuilder(
-//            context, myDatabase::class.java, "To_Do"
-//        ).build()
-//        database.dao().deleteTaskFromId(taskId)
-//    }
-
+    //trả về giá trị khác ko - giá trị của task.status
     private fun toBoolean(num: Int): Boolean {
         return num != 0
     }
 
+    //trả về kích thước của danh sách
     override fun getItemCount(): Int {
         return data.size
     }

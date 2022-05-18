@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="115dp">
-
+<!--   tích  -->
     <CheckBox
         android:id="@+id/checkBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+<!--    CardView: bo tròn góc-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,7 @@
         app:cardUseCompatPadding="true"
         app:contentPadding="5dp">
 
-
+<!--    LinearLayout: hiển thị giao diện theo chiều ngang/dọc-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -123,17 +124,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     tools:text="" />
-
-<!--                <TextView-->
-<!--                    android:id="@+id/status"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="right"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:layout_marginBottom="10dp"-->
-<!--                    android:text="COMPLETED"-->
-<!--                    android:textColor="@android:color/black"-->
-<!--                    android:textSize="12sp" />-->
 
             </LinearLayout>
 

@@ -22,12 +22,13 @@ import kotlinx.android.synthetic.main.fragment_calendar_view.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-
+//BottomSheetDialogFragment hiện thị bên dưới, chồng lên activity
 class ShowCalendarViewBottomSheet : BottomSheetDialogFragment() {
     lateinit var activity: MainActivity
     private lateinit var database: myDatabase
 
     var tasks: List<TaskModel> = ArrayList()
+
     private val bottomSheetCallback = object : BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
@@ -44,7 +45,9 @@ class ShowCalendarViewBottomSheet : BottomSheetDialogFragment() {
         super.setupDialog(dialog, style)
         val contentView = View.inflate(context, R.layout.fragment_calendar_view, null)
 
+    //biến môi trường
         activity = getActivity() as MainActivity
+    //khởi tạo và đỗ dữ liệu
         database = Room.databaseBuilder(
             activity, myDatabase::class.java, "To_Do"
         ).build()
@@ -54,17 +57,19 @@ class ShowCalendarViewBottomSheet : BottomSheetDialogFragment() {
             contentView.calendarView!!.setEvents(highlitedDays())
         }
 
+    //định dạng lại calendarView
         dialog.setContentView(contentView)
         contentView.calendarView!!.setHeaderColor(R.color.colorAccent)
-//        savedTasks
+
+//      ẩn dialog calendarView khi click vào mũi tên black
         contentView.back!!.setOnClickListener { view: View? -> dialog.dismiss() }
     }
 
-    override fun onDestroyView() {     //kết thúc tiến trình - nhận kết quả từ doInBackground
+    override fun onDestroyView() {     //kết thúc tiến trình
         super.onDestroyView()
     }
 
-    //Lấy ngày
+    //Lấy ngày có sự kiện - hiển thị dấu chấm xanh trên lịch
     private fun highlitedDays(): List<EventDay>{
             val events: MutableList<EventDay> = ArrayList()
             for (i in tasks.indices) {

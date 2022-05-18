@@ -27,6 +27,7 @@
 
     </FrameLayout>
 
+<!-- CalendarView: sử dụng thư viện calendar - import thêm thư viện trong Gradle   -->
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"

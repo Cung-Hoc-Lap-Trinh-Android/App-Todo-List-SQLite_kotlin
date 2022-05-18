@@ -7,13 +7,12 @@
     android:backgroundTint="@color/colorPrimary">
 
     <TextView
-        fontPath="fonts/nunito_extra_bold.ttf"
+        android:fontFamily="@font/nunito_extra_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textColor="@color/colorAccent"
         android:textSize="28sp"
-        android:textStyle="bold"
         tools:ignore="MissingPrefix" />
 
 </RelativeLayout>
