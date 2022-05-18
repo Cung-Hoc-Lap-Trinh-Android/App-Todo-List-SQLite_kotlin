@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/drawable/btn_background.xml" value="0.2203125" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/fragment_calendar_view.xml" value="0.16458333333333333" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/fragment_create_task.xml" value="0.25" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/item_task.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/menu/item_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main - Copy/app/src/main/res/menu/menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/activity_create_card.xml" value="0.19010416666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/fragment_calendar_view.xml" value="0.18854166666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/fragment_create_task.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/item_task.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/layout/view.xml" value="0.20416666666666666" />
+        <entry key="..\:/android/TODO_App-main/app/src/main/res/menu/menu.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
